@@ -1,0 +1,1 @@
+With this file you can carryout various shell redirections and input/output functions.
