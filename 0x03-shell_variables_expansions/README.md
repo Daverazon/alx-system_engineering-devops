@@ -1,0 +1,1 @@
+With this project you can carryout several shell operations and deepen your understanding of the shell
