@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# This script kills an infinite loop process
+
+current_process_pid=$$
+kill $current_process_pid
