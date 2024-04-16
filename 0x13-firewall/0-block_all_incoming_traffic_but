@@ -5,3 +5,4 @@ sudo ufw enable
 sudo ufw deny incoming
 sudo ufw allow outgoing
 sudo ufw allow proto tcp from any to any port 22,80,443
+sudo ufw disable
