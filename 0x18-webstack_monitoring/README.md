@@ -12,8 +12,7 @@ on my three HolbertonBnB servers.
     * created an application key
 
 * **1. Monitor your server**
-  * For this task, I configured Datadog to monitor my server's memory, CPU, network
-  and disk.
+  * For this task, I configured Datadog to monitor my server's memory, CPU, network and disk.
 
 * **2. Create a dashboard**
-  * For this task I created a dashboard with different metrics displayed in order to get a few different visualizations.
+  * [2-setup_datadog](./2-setup_datadog): Dashboard id of a dashboard I created with different metrics displayed in order to get a few different visualizations.
