@@ -1,5 +1,5 @@
 # Postmortem
-![explosion](./postmortem.gif)
+![explosion](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-sysadmin_devops/294/pQ9YzVY.gif)
 Upon the release of ALX's System Engineering & DevOps project 0x19, approximately 06:03 GMT+1, an outage occurred on an isolated Ubuntu 14.04 container running an Apache web server. GET requests on the server led to 500 Internal Server Error's, when the expected response was an HTML file defining a simple ALX WordPress site.
 
 ## Debugging Process
@@ -22,7 +22,7 @@ Software Engineer David encountered the issue upon opening the project and being
 8. Wrote a Puppet manifest to automate fixing of the error.
 
 ## Summation
-![typo picture](./typo_error.jpg)
+![typo picture](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.instagram.com%2Fp%2FC5BKEwkpDFa%2F&psig=AOvVaw1uIphmlvwBhSeVzu9S-zKY&ust=1715633762415000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCOji7vv_iIYDFQAAAAAdAAAAABAE)
 In short, a typo. Gotta love'em. In full, the WordPress app was encountering a critical error in `wp-settings.php` when tyring to load the file `class-wp-locale.phpp`. The correct file name, located in the wp-content directory of the application folder, was `class-wp-locale.php`.
 
 Patch involved a simple fix on the typo, removing the trailing `p`.
