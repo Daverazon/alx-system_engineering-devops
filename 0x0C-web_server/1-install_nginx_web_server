@@ -10,4 +10,4 @@ sudo ufw 'Nginx HTTP'
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
 # restart nginx to load changes
-sudo nginx restart
+sudo service nginx reload
