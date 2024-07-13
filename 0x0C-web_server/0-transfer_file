@@ -15,7 +15,7 @@ username=$3
 path_to_ssh_key=$4
 
 # Disabling strict host key checking while transferring file
-scp -o "StrictHostKeyChecking=no" -i "$path_to_ssh_key "$path_to_file" "$username@$ip:~/"
+scp -o "StrictHostKeyChecking=no" -i "$path_to_ssh_key" "$path_to_file" "$username@$ip:~/"
 
 # Checking transfer outcome
 if [ $? -eq 0]
