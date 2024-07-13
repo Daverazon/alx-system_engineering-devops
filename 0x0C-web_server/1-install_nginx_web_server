@@ -7,7 +7,7 @@ sudo apt-get install -y nginx
 sudo ufw 'Nginx HTTP'
 
 # Add page to return hello world when querying Nginx at its root / with a GET request (requesting a page) using curl
-echo "Hello World!" | sudo tee /var/html/index.html
+echo "Hello World!" | sudo tee /var/www/html/index.html
 
 # restart nginx to load changes
 sudo nginx restart
