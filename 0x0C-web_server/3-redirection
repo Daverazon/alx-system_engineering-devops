@@ -1,22 +1,26 @@
 #!/usr/bin/env bash
-# Configures an Nginx server so that /redirect_me redirects to another page.
-# The redirection is configured as a "301 Moved Permanently"
+# Install nginx
+sudo apt-get update
+sudo apt-get install -y nginx
 
-apt-get update
-apt-get install -y nginx
+# Allow to listen on port 80
+sudo ufw allow 'Nginx HTTP'
 
-mkdir /etc/nginx/html
-touch /etc/nginx/html/index.html
-echo "Holberton School" > /etc/nginx/html/index.html
-printf %s "server {
-    listen 80;
-    listen [::]:80 default_server;
-    root   /etc/nginx/html;
-    index  index.html index.htm;
+# Allow ssh
+sudo ufw allow 'OpenSSH'
 
-    location /redirect_me {
-        return 301 http://cuberule.com/;
-    }
-}" > /etc/nginx/sites-available/default
+# Activate firewall and acknowledge the changes I made
+echo y | sudo ufw enable
 
-service nginx restart
+# Add page to return hello world when querying Nginx at its root / with a GET
+# request (requesting a page) using curl
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+# Configure server so /redirect_me is redirecting to another page
+# with a 301 moved permanently redirection
+regexp_of_line_to_be_replaced="server_name _;"
+replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/Daverazon permanent;"
+sudo sed -i "s/$regexp_of_line_to_be_replaced/$replacement/" /etc/nginx/sites-enabled/default
+
+# restart nginx to load changes
+sudo service nginx restart
