@@ -4,10 +4,17 @@ sudo apt-get update
 sudo apt-get install -y nginx
 
 # Allow to listen on port 80
-sudo ufw 'Nginx HTTP'
+sudo ufw allow 'Nginx HTTP'
 
-# Add page to return hello world when querying Nginx at its root / with a GET request (requesting a page) using curl
+# Allow ssh
+sudo ufw allow 'OpenSSH'
+
+# Activate firewall and acknowledge the changes I made
+echo y | sudo ufw enable
+
+# Add page to return hello world when querying Nginx at its root / with a GET
+# request (requesting a page) using curl
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
 # restart nginx to load changes
-sudo service nginx reload
+sudo service nginx restart
