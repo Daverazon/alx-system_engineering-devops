@@ -1,38 +1,38 @@
 #!/usr/bin/env bash
-# Installs Nginx with the following configurations:
-#+    Listens on port 80.
-#+    Returns a page containing "Holberton School" when queried
-#+     at the root with a curl GET request.
-#+    Configures /redirect_me as a "301 Moved Permanently".
-#+    Includes a custom 404 page containing "Ceci n'est pas une page".
-#+    Contains a custom HTTP header named X-Served-By.
-#+    The value of the HTTP header is the hostname of the running server.
+# Install nginx
+sudo apt-get update
+sudo apt-get install -y nginx
 
-apt-get update
-apt-get install -y nginx
+# Allow to listen on port 80
+sudo ufw allow 'Nginx HTTP'
 
-mkdir -p /var/www/html
-touch /var/www/html/index.html
-echo "Holberton School" > /var/www/html/index.html
-touch /var/www/html/404.html
-echo "Ceci n'est pas une page" > /var/www/html/404.html
+# Allow ssh
+sudo ufw allow 'OpenSSH'
 
-printf %s "server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    add_header X-Served-By $HOSTNAME;
-    root   /var/www/html;
-    index  index.html index.htm;
+# Activate firewall and acknowledge the changes I made
+echo y | sudo ufw enable
 
-    location /redirect_me {
-        return 301 http://cuberule.com/;
-    }
+# Add page to return hello world when querying Nginx at its root / with a GET
+# request (requesting a page) using curl
+echo "Hello World!" | sudo tee /var/www/html/index.html
 
-    error_page 404 /404.html;
-    location /404 {
-      root /var/www/html;
-      internal;
-    }
-}" > /etc/nginx/sites-available/default
+# Configure server so /redirect_me is redirecting to another page
+# with a 301 moved permanently redirection
+regexp_of_line_to_be_replaced="server_name _;"
+replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/Daverazon permanent;"
+sudo sed -i "s/$regexp_of_line_to_be_replaced/$replacement/" /etc/nginx/sites-enabled/default
 
-service nginx restart
+
+# configure server to have a custom error page
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+regexp_for_replacement1="listen 80 default_server;"
+replacement1="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
+sudo sed -i "s/$regexp_for_replacement1/$replacement1/" /etc/nginx/sites-enabled/default
+
+
+# Create custom header for HTTP response
+sudo sed -i "/server_name _;/a\ add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
+
+
+# restart nginx to load changes
+sudo service nginx restart
