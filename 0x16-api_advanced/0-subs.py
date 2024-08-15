@@ -21,9 +21,7 @@ def number_of_subscribers(subreddit):
     headers = {'User-Agent': '0-subs:1.0 by daverazon'}
     # Add user agent to prevent rate limiting
     response = requests.get(url, headers=headers, allow_redirects=False)
-
-    if response.status_code == 200:
-        return response.json()['data']['subscribers']
-    elif response.status_code == 404:
+    if response.status_code == 404:
         # 404 is status code for not found
         return 0
+    return response.json()['data']['subscribers']
