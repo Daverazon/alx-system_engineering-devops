@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-import requests
 """This script queries the Reddit and returns a given subreddit's
     subscriber number"""
+import requests
 
 
 def number_of_subscribers(subreddit):
